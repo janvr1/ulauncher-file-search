@@ -33,7 +33,7 @@
       "type": "input",
       "name": "Base dir",
       "description": "The base directory to start your searches. Ex: /",
-      "default_value": "/"
+      "default_value": "/home"
     }
   ]
 }
