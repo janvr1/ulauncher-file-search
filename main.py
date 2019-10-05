@@ -23,9 +23,9 @@ LOGGING = logging.getLogger(__name__)
 
 FILE_SEARCH_ALL = 'ALL'
 
-FILE_SEARCH_DIRECTORY = 'DIR'
+FILE_SEARCH_HIDDEN = 'HIDDEN'
 
-FILE_SEARCH_FILE = 'FILE'
+#FILE_SEARCH_FILE = 'FILE'
 
 
 class FileSearchExtension(Extension):
@@ -39,16 +39,11 @@ class FileSearchExtension(Extension):
     def search(self, query, file_type=None):
         """ Searches for Files using fd command """
         cmd = [
-            'timeout', '5s', 'ionice', '-c', '3', 'fd', '--threads', '1',
-            '--hidden'
+            'fdfind'
         ]
 
-        if file_type == FILE_SEARCH_FILE:
-            cmd.append('-t')
-            cmd.append('f')
-        elif file_type == FILE_SEARCH_DIRECTORY:
-            cmd.append('-t')
-            cmd.append('d')
+        if file_type == FILE_SEARCH_HIDDEN:
+            cmd.append('--hidden')
 
         cmd.append(query)
         cmd.append(self.preferences['base_dir'])
@@ -133,16 +128,10 @@ class KeywordQueryEventListener(EventListener):
             ])
 
         keyword = event.get_keyword()
-        # Find the keyword id using the keyword (since the keyword can be changed by users)
-        for kw_id, kw in list(extension.preferences.items()):
-            if kw == keyword:
-                keyword_id = kw_id
-
+        
         file_type = FILE_SEARCH_ALL
-        if keyword_id == "ff_kw":
-            file_type = FILE_SEARCH_FILE
-        elif keyword_id == "fd_kw":
-            file_type = FILE_SEARCH_DIRECTORY
+        if keyword=="fh":
+            file_type = FILE_SEARCH_HIDDEN
 
         results = extension.search(query.strip(), file_type)
 
