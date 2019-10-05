@@ -11,20 +11,14 @@
     {
       "id": "kw",
       "type": "keyword",
-      "name": "fd - File and Directory Search",
-      "default_value": "fd"
+      "name": "f - File and Directory Search (excluding hidden items)",
+      "default_value": "f"
     },
     {
-      "id": "ff_kw",
+      "id": "fh_kw",
       "type": "keyword",
-      "name": "ff - File Search",
-      "default_value": "ff"
-    },
-    {
-      "id": "fd_kw",
-      "type": "keyword",
-      "name": "fdir - Directory Search",
-      "default_value": "fdir"
+      "name": "fh - File and Directory Search (including hidden items)",
+      "default_value": "fh"
     },
     {
       "id": "terminal_emulator",

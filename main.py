@@ -129,8 +129,12 @@ class KeywordQueryEventListener(EventListener):
 
         keyword = event.get_keyword()
         
+        for kw_id, kw in list(extension.preferences.items()):
+            if kw == keyword:
+                keyword_id = kw_id
+
         file_type = FILE_SEARCH_ALL
-        if keyword=="fh":
+        if keyword_id == "fh_kw":
             file_type = FILE_SEARCH_HIDDEN
 
         results = extension.search(query.strip(), file_type)
